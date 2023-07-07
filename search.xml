@@ -4,7 +4,57 @@
   
     
     <entry>
-      <title>半监督学习</title>
+      <title>理解HTTP协议及其通信过程</title>
+      <link href="/2023/07/07/HTTP/"/>
+      <url>/2023/07/07/HTTP/</url>
+      
+        <content type="html"><![CDATA[<h1 id="理解HTTP协议及其通信过程"><a href="#理解HTTP协议及其通信过程" class="headerlink" title="理解HTTP协议及其通信过程"></a>理解HTTP协议及其通信过程</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>HTTP（HyperText Transfer Protocol）全称超文本传输协议，它是一种支持传输各种格式的数据资源（如图片、音频、视频等）的协议。它起源于Web的诞生，是Web通信的基础协议。</p><h2 id="HTTP的组成"><a href="#HTTP的组成" class="headerlink" title="HTTP的组成"></a>HTTP的组成</h2><p>HTTP由三部分组成，分别是超文本（HyperText）、传输（Transfer）和协议（Protocol）。</p><ul><li>超文本：指的是包含超链接的文本，这些超链接可以指向其他文本或资源。<br><img src="/img/blog/http/hyper_text.png" alt="hyper_text"></li><li>传输：指的是通过HTTP协议将数据资源从服务器传输到客户端。<br><img src="/img/blog/http/transfer.png" alt="transfer"></li><li>协议：指的是通信双方为了交换信息而使用的一种规定格式和规则的约定。</li></ul><h2 id="HTTP的通信过程"><a href="#HTTP的通信过程" class="headerlink" title="HTTP的通信过程"></a>HTTP的通信过程</h2><p>一次HTTP请求过程可以分为四个阶段：建立TCP连接、发送请求、响应请求和关闭TCP连接。</p><ol><li><p>建立TCP连接：在通信过程中，首先需要建立TCP连接。这是通过握手的方式进行，握手过程中，客户端和服务器交换数据以确认彼此的身份。</p></li><li><p>发送请求：一旦TCP连接建立成功，客户端可以发送HTTP请求。请求由四部分组成，包括请求行、请求头、空行和消息体。请求行包含请求方法(GET、POST等)、请求目标资源(URL)和协议版本。请求头则以键值对的形式表示特定的信息。</p></li><li><p>响应请求：服务器收到请求后，解析并准备相应的数据，然后按照HTTP协议规定发送响应报文。响应报文由四部分组成，包括状态行、响应头、空行和消息体。状态行包含协议版本、状态码和原因。响应头与请求头类似，也是以键值对的形式表示特定的信息。</p></li><li><p>关闭TCP连接：响应完成后，可以关闭TCP连接以释放资源。<br><img src="/img/blog/http/http请求过程.png" alt="http请求过程"></p></li></ol><h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><p>TCP报文下方是HTTP报文，HTTP协议是基于TCP协议的应用层协议，请求和响应都是通过TCP协议进行传输<br><img src="/img/blog/http/tcp报文.png" alt="tcp报文"></p><h3 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h3><p>一旦TCP连接建立成功，客户端就可以发送HTTP请求了。请求由多部分组成，包括请求行、请求头、空行和消息体。</p><ul><li>请求行：包含请求方法（GET、POST等）、请求目标资源（URL）和协议版本。</li><li>请求头：用键值对的形式表示，以回车换行符作为结束符。</li><li>空行：请求头之后是一个空行。</li><li>消息体：如果请求需要携带数据，就会包含在消息体中。<br><img src="/img/blog/http/http请求报文.png" alt="http请求报文"></li></ul><h3 id="响应请求"><a href="#响应请求" class="headerlink" title="响应请求"></a>响应请求</h3><p>服务器收到请求后，会解析请求报文，准备相应的数据，并通过HTTP协议约定发送响应报文。响应报文也由多部分组成，包括状态行、响应头、空行和消息体。</p><ul><li>状态行：包含协议版本、状态码（用数字表示处理结果，如200表示成功，500表示服务器错误）和原因（对状态码的解释）。</li><li>响应头：与请求头类似，以键值对的形式表示。</li><li>空行：响应头之后是一个空行。</li><li>消息体：根据请求的需要，服务器可能会返回一些数据，它们包含在消息体中。<br><img src="/img/blog/http/http响应报文.png" alt="http响应报文"></li></ul><h2 id="通信双方之间的数据传递"><a href="#通信双方之间的数据传递" class="headerlink" title="通信双方之间的数据传递"></a>通信双方之间的数据传递</h2><p>通过HTTP协议，浏览器将用户输入的网址转换为请求报文发送给服务器。服务器按照协议规定解析报文并准备数据，然后按照规定发送响应报文。浏览器接收响应报文后解析报文并呈现数据。<br><img src="/img/blog/http/http协议全过程.png" alt="http协议全过程"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>HTTP是一个简单的请求响应协议，它定义了客户端可能发送给服务器的消息和服务器可能返回给客户端的响应。它的通信过程包括建立TCP连接、发送请求、响应请求和关闭TCP连接四个阶段。通过HTTP协议，客户端和服务器可以进行数据传输，实现Web通信。  </p><p><strong><em>本博客内容来自B站Up主(码上小白)的视频 <a href="https://www.bilibili.com/video/BV1ph41177rJ/?share_source=copy_web&amp;vd_source=e49b883b55e96bb546276786508ad4eb">HTTP是什么？</a></em></strong><br><strong><em>转载请注明出处！</em></strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HTTP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LangChain中的ChatOpenAI类与OpenAI类的区别</title>
+      <link href="/2023/07/06/ChatOpenAI%E4%B8%8EOpenAI/"/>
+      <url>/2023/07/06/ChatOpenAI%E4%B8%8EOpenAI/</url>
+      
+        <content type="html"><![CDATA[<h1 id="LangChain中的ChatOpenAI类与OpenAI类的区别"><a href="#LangChain中的ChatOpenAI类与OpenAI类的区别" class="headerlink" title="LangChain中的ChatOpenAI类与OpenAI类的区别"></a>LangChain中的ChatOpenAI类与OpenAI类的区别</h1><p>LangChain是一个AI框架，允许开发者使用ChatOpenAI类和OpenAI类来实现不同的功能。<br>在本文中，我们将讨论这两个类的区别以及它们在LangChain的使用中的不同场景。</p><h2 id="ChatOpenAI类和OpenAI类的区别"><a href="#ChatOpenAI类和OpenAI类的区别" class="headerlink" title="ChatOpenAI类和OpenAI类的区别"></a>ChatOpenAI类和OpenAI类的区别</h2><p>从LangChain API官网文档中我们可以看到，ChatOpenAI类属于langchain.chat_models模块，而OpenAI类属于langchain模块。它们之间的主要区别在于适用的场景和API功能。<br><a href="https://python.langchain.com/docs/modules/agents/agent_types/openai_functions_agent.html">LangChain API官网</a><br><img src="/img/blog/chat_open_ai/langchain_api.png" alt="langchain_api"></p><h3 id="ChatOpenAI类"><a href="#ChatOpenAI类" class="headerlink" title="ChatOpenAI类"></a>ChatOpenAI类</h3><p>ChatOpenAI类用于处理聊天会话场景，并支持LangChain中的聊天模型。<br><img src="/img/blog/chat_open_ai/chat_openai_support_models.png" alt="chat_openai_support_models"><br>当我们想要实现人类与AI之间多轮的对话和交互时，可以使用ChatOpenAI类。<br>该类的使用需要传递使用LangChain框架封装的消息类SystemMessage。<br><img src="/img/blog/chat_open_ai/chat_openai_implenment.png" alt="chat_openai_implenment"></p><h3 id="OpenAI类"><a href="#OpenAI类" class="headerlink" title="OpenAI类"></a>OpenAI类</h3><p>OpenAI类则适用于一问一答的场景，并且没有聊天会话的概念。<br>OpenAI类支持的模型包括较老的模型，如davinci等。<br><img src="/img/blog/chat_open_ai/openai_support_models.png" alt="openai_support_models"><br>该类可以直接实例化，而不需要特定的消息类。<br><img src="/img/blog/chat_open_ai/openai_implenment.png" alt="openai_implenment"></p><h2 id="API文档和功能"><a href="#API文档和功能" class="headerlink" title="API文档和功能"></a>API文档和功能</h2><p>在OpenAI API官网上，我们可以找到有关Chat和Completions两个概念的详细信息。</p><h3 id="Chat"><a href="#Chat" class="headerlink" title="Chat"></a>Chat</h3><p>Chat功能用于给定一个由对话组成的消息列表，模型将返回一个响应。<br>Chat API endpoint:<code>https://api.openai.com/v1/chat/completions</code><br>重点关注聊天会话。<br><a href="https://platform.openai.com/docs/api-reference/chat">OpenAI Chat API官网</a><br><img src="/img/blog/chat_open_ai/chat_api.png" alt="chat_api">  </p><h3 id="Completions"><a href="#Completions" class="headerlink" title="Completions"></a>Completions</h3><p>Completions功能用于给定一个提示（prompt），模型将返回一个或多个预测的补全结果，并可以返回每个位置的可选标记概率。需要注意的是，OpenAI建议大多数用户使用Chat Completions API。<br>Completions API endpoint:<code>https://api.openai.com/v1/completions</code><br>重点关注一问一答场景，而没有聊天会话的概念。<br><a href="https://platform.openai.com/docs/api-reference/completions">OpenAI Completions API官网</a><br><img src="/img/blog/chat_open_ai/completions_api.png" alt="completions_api">  </p><p>综上所述，ChatOpenAI适用于聊天模型，适用于多轮问答交互场景；而OpenAI则适用于较老的模型，如davinci等。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> AI学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OpenAI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>半监督学习及其处理方法</title>
       <link href="/2023/07/03/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"/>
       <url>/2023/07/03/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/</url>
       
@@ -13,7 +63,7 @@
       
       <categories>
           
-          <category> 编程学习 </category>
+          <category> AI学习 </category>
           
       </categories>
       
@@ -104,11 +154,11 @@
     
     
     <entry>
-      <title>摸鱼日记4</title>
-      <link href="/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B04/"/>
-      <url>/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B04/</url>
+      <title>摸鱼日记5</title>
+      <link href="/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B05/"/>
+      <url>/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B05/</url>
       
-        <content type="html"><![CDATA[<h2 id="别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼"><a href="#别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼" class="headerlink" title="别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼"></a>别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼</h2><h2 id="这种处于摸鱼和没摸鱼之间的叠加态，我称之为-薛定谔在摸鱼"><a href="#这种处于摸鱼和没摸鱼之间的叠加态，我称之为-薛定谔在摸鱼" class="headerlink" title="这种处于摸鱼和没摸鱼之间的叠加态，我称之为: 薛定谔在摸鱼"></a>这种处于摸鱼和没摸鱼之间的叠加态，我称之为: 薛定谔在摸鱼</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="To-touch-fish-or-not-to-touch-fish-that-is-the-question-—-《Touch-fish-Hamlet》"><a href="#To-touch-fish-or-not-to-touch-fish-that-is-the-question-—-《Touch-fish-Hamlet》" class="headerlink" title="To touch fish, or not to touch fish, that is the question —- 《Touch fish Hamlet》"></a>To touch fish, or not to touch fish, that is the question —- 《Touch fish Hamlet》</h2>]]></content>
       
       
       <categories>
@@ -129,11 +179,11 @@
     
     
     <entry>
-      <title>摸鱼日记5</title>
-      <link href="/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B05/"/>
-      <url>/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B05/</url>
+      <title>摸鱼日记4</title>
+      <link href="/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B04/"/>
+      <url>/2022/12/21/%E6%91%B8%E9%B1%BC%E6%97%A5%E8%AE%B04/</url>
       
-        <content type="html"><![CDATA[<h2 id="To-touch-fish-or-not-to-touch-fish-that-is-the-question-—-《Touch-fish-Hamlet》"><a href="#To-touch-fish-or-not-to-touch-fish-that-is-the-question-—-《Touch-fish-Hamlet》" class="headerlink" title="To touch fish, or not to touch fish, that is the question —- 《Touch fish Hamlet》"></a>To touch fish, or not to touch fish, that is the question —- 《Touch fish Hamlet》</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼"><a href="#别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼" class="headerlink" title="别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼"></a>别人没观察你之前，你有可能在摸鱼，也可能没有摸鱼</h2><h2 id="这种处于摸鱼和没摸鱼之间的叠加态，我称之为-薛定谔在摸鱼"><a href="#这种处于摸鱼和没摸鱼之间的叠加态，我称之为-薛定谔在摸鱼" class="headerlink" title="这种处于摸鱼和没摸鱼之间的叠加态，我称之为: 薛定谔在摸鱼"></a>这种处于摸鱼和没摸鱼之间的叠加态，我称之为: 薛定谔在摸鱼</h2>]]></content>
       
       
       <categories>
