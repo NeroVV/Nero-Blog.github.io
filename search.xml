@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>ChatGPT Custom Instructions</title>
+      <link href="/2023/07/22/ChatGPT%20Custom%20Instructions/"/>
+      <url>/2023/07/22/ChatGPT%20Custom%20Instructions/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ChatGPT-Custom-Instructions"><a href="#ChatGPT-Custom-Instructions" class="headerlink" title="ChatGPT Custom Instructions"></a>ChatGPT Custom Instructions</h2><p>ChatGPT Custom Instructions使用户可以根据自己的需求定制ChatGPT，并允许添加偏好和要求，以便在生成回复时加以考虑。</p><p>OpenAI通过custom instructions深化了ChatGPT的可操控性，使其能够更好地适应每个人的多样化背景和独特需求，这在理解关键方面起到了关键作用。</p><p>ChatGPT将在每次对话中考虑用户的custom instructions，这样用户无需在每次对话中重复提供自己的偏好或信息。</p><h3 id="Custom-Instructions效果对比"><a href="#Custom-Instructions效果对比" class="headerlink" title="Custom Instructions效果对比"></a>Custom Instructions效果对比</h3><p>下图展示了一个custom instructions的示例：</p><p><img src="/img/blog/custom_instructions/custom_instructions例子.png" alt="custom_instructions例子"></p><p>启用custom instructions后，对ChatGPT提问：”Write me code for getting the nth number in Fibonacci sequence”</p><p>ChatGPT的回复中只提供了GO代码。<br><img src="/img/blog/custom_instructions/custom_instructions_go.png" alt="custom_instructions_go"></p><p>关闭custom instructions后，对ChatGPT提问相同的问题：”Write me code for getting the nth number in Fibonacci sequence”</p><p>这次ChatGPT的回复提供了Python代码，并附带详细的代码说明。然而，如果用户是GO程序员，则需要进一步调整回复以满足其需求。<br><img src="/img/blog/custom_instructions/custom_instructions_python.png" alt="custom_instructions_python"></p><h3 id="Custom-Instructions设置"><a href="#Custom-Instructions设置" class="headerlink" title="Custom Instructions设置"></a>Custom Instructions设置</h3><p>在第一个文本框中，我们可以告诉ChatGPT自己的偏好以及想要讨论的主题。</p><p><img src="/img/blog/custom_instructions/custom_instructions设置1.png" alt="custom_instructions设置1"></p><p>在第二个文本框中，我们可以告诉ChatGPT我们希望它在回复时遵循的风格、字数和偏好。</p><p><img src="/img/blog/custom_instructions/custom_instructions设置2.png" alt="custom_instructions设置2"></p><h3 id="Custom-Instructions的例子"><a href="#Custom-Instructions的例子" class="headerlink" title="Custom Instructions的例子"></a>Custom Instructions的例子</h3><p>以下是一些Custom Instructions的示例：</p><ul><li>查询：请在回答中提供最新的英文资料，并在紧随其后的括号中列出具体的来源链接。</li><li>文章润色：请纠正文稿中的拼写和错误，并注意标点符号的使用。在润色完成后，请附加说明修改了哪些内容以及原因。</li><li>审视：当要求ChatGPT审视内容时，请将自己视为一个经验丰富的领域专家，仔细审视前面的问题，并思考是否存在错误或需要补充的地方。如果有的话，请根据查询资料的结果替换或添加内容。</li></ul><p>上述Custom Instructions的例子可以在单个或多个对话场景中相互调用，并且它们并不是独立起作用。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过使用Custom Instructions，您可以让ChatGPT记住您的特点和定制化要求。此外，指令可以进行嵌套调用，从而降低ChatGPT的使用复杂度。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> AI学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ChatGPT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HTTP/3协议：提升网络性能与解决传输层问题</title>
       <link href="/2023/07/20/HTTP3/"/>
       <url>/2023/07/20/HTTP3/</url>
@@ -145,7 +170,7 @@
       
         <tags>
             
-            <tag> OpenAI </tag>
+            <tag> ChatGPT </tag>
             
         </tags>
       
