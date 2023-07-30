@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>梯度下降算法的梯度方向</title>
+      <link href="/2023/08/03/%E6%A2%AF%E5%BA%A6%E6%96%B9%E5%90%91/"/>
+      <url>/2023/08/03/%E6%A2%AF%E5%BA%A6%E6%96%B9%E5%90%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="梯度下降算法的梯度方向"><a href="#梯度下降算法的梯度方向" class="headerlink" title="梯度下降算法的梯度方向"></a>梯度下降算法的梯度方向</h1><p>在多元函数中，如果我们沿着函数梯度的方向运动，函数的值会以最快的速度增加；相反，如果我们沿着函数梯度的反方向运动，函数的值会以最快的速度减小。</p><h2 id="梯度的基本概念"><a href="#梯度的基本概念" class="headerlink" title="梯度的基本概念"></a>梯度的基本概念</h2><p>梯度(gradient)是微积分和向量分析中的重要概念，它可以理解为多元函数全部偏导数所构成的向量。<br>例如，二元函数f(x,y)的梯度是由函数f对x和y求偏导组成的二维向量。</p><p><img src="/img/blog/gradient/梯度基本概念.png" alt="梯度基本概念"></p><h2 id="二元函数与函数上某点的梯度"><a href="#二元函数与函数上某点的梯度" class="headerlink" title="二元函数与函数上某点的梯度"></a>二元函数与函数上某点的梯度</h2><p>考虑二元函数f(x,y)=x^2+y^2，在点(1,1)处的梯度向量如下图所示。<br>将函数上的点P(1,1,2)标记为红色，将该点向灰色的x-o-y平面投影，标记为蓝色。<br>从蓝色点出发，画出向量(2,2)，用黑色箭头表示，这就是点P的梯度向量。</p><p><img src="/img/blog/gradient/二元函数梯度.png" alt="二元函数梯度"></p><p>由此可见，从输入点(1,1)沿着(2,2)方向运动，函数会增加最快。</p><h2 id="梯度向量的具体算法"><a href="#梯度向量的具体算法" class="headerlink" title="梯度向量的具体算法"></a>梯度向量的具体算法</h2><p>从点P出发，向不同方向运动相同长度，可以发现只有沿着梯度方向运动，函数值变化最快。</p><p>基于俯视角度观察函数，在x-o-y平面上，我们可以沿着三个方向向量：(-1,0), (1,0), (2,2)，移动一个单位。</p><ul><li>从P点向(-1,0)方向到达A点，A点的函数值为f(0,1) = 0^2 + 1^2 = 1</li></ul><p><img src="/img/blog/gradient/梯度方向验证A.png" alt="梯度方向验证A"></p><ul><li><p>从P点向(1,0)方向到达B点，B点的函数值为f(2,1) = 2^2 + 1^2 = 5</p></li><li><p>从P点向(2,2)方向到达C点，C点的函数值为f(1.7,1.7) = 1.7^2 + 1.7^2 = 5.828</p></li></ul><p><img src="/img/blog/gradient/梯度方向验证BC.png" alt="梯度方向验证BC"></p><p>在机器学习中，我们通常希望找到目标函数的最小值。<br>为了达到这个目标，我们可以从某一个点出发，沿着梯度的反方向运动，这样函数的值会以最快的速度减小。<br>通过这种方式，我们可以更快地将函数收敛到最小值。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>梯度下降算法的关键在于选择合适的梯度方向进行更新。<br>我们通过计算函数的梯度向量，可以确定沿着何种方向函数值变化最快。<br>在机器学习中，这个概念非常重要，因为我们经常需要通过梯度下降来优化模型的参数。<br>通过沿着逐渐减小的梯度方向迭代更新参数，我们能够有效地寻找目标函数的最小值。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>UserCF算法</title>
+      <link href="/2023/07/30/UserCF%E7%AE%97%E6%B3%95/"/>
+      <url>/2023/07/30/UserCF%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="UserCF算法"><a href="#UserCF算法" class="headerlink" title="UserCF算法"></a>UserCF算法</h1><p>UserCF (User-based Collaborative Filtering)算法使用朴素的“人以群分”的思想。<br>基本思路是先找到相似用户，再找到他们喜欢的物品。<br>例如，如果用户A和用户B是相似的，现在给用户A推荐物品，就可以把用户B关注的但用户A没关注的物品推荐给用户A。<br><img src="/img/blog/UserCF/推荐原理.png" alt="推荐原理"></p><h2 id="UserCF算法步骤"><a href="#UserCF算法步骤" class="headerlink" title="UserCF算法步骤"></a>UserCF算法步骤</h2><p>步骤1：找到与待推荐用户兴趣相似的用户集合<br>步骤2：从这些相似用户喜欢的物品中选出目标用户没有关注的物品，并将它们推荐给目标用户</p><h2 id="用户相似度"><a href="#用户相似度" class="headerlink" title="用户相似度"></a>用户相似度</h2><p>基于用户行为相似度，计算兴趣相似度。具体来说，用户行为是指喜欢某些物品。<br>将不同用户喜欢的物品列表看做是不同的集合，通过集合求相似的方法，得出用户行为相似度。<br><img src="/img/blog/UserCF/用户相似度.png" alt="用户相似度"></p><h3 id="Jaccard相似系数"><a href="#Jaccard相似系数" class="headerlink" title="Jaccard相似系数"></a>Jaccard相似系数</h3><p>Jaccard相似系数可以比较有限集合(A与B)之间的相似性和差异性。<br>Jaccard系数等于A与B交集的大小除以A与B并集的大小，取值范围在0到1之间。<br>越接近1表示越相似，越接近0表示越不相似。<br>1代表两个集合完全相似，0代表两个集合完全没有交集。<br><img src="/img/blog/UserCF/Jaccard相似算法.png" alt="Jaccard相似算法"></p><h3 id="余弦相似度"><a href="#余弦相似度" class="headerlink" title="余弦相似度"></a>余弦相似度</h3><p>余弦相似度计算公式为：Cos(A,B) = (A和B交集大小) / 根号下(A集合大小 * B集合大小)，取值范围在0到1之间。<br>越接近1表示越相似，越接近0表示越不相似。<br>1代表两个集合完全相似，0代表两个集合完全没有交集。<br><img src="/img/blog/UserCF/余弦相似度.png" alt="余弦相似度"></p><h2 id="UserCF推荐算法"><a href="#UserCF推荐算法" class="headerlink" title="UserCF推荐算法"></a>UserCF推荐算法</h2><p>得到用户之间兴趣相似度后，接下来要对某个用户进行推荐。<br>UserCF算法会为用户推荐与他兴趣最相似的K个用户的感兴趣物品，并且会对推荐物品进行排序。<br><img src="/img/blog/UserCF/UserCF推荐算法.png" alt="UserCF推荐算法"></p><h2 id="UserCF推荐算法案例"><a href="#UserCF推荐算法案例" class="headerlink" title="UserCF推荐算法案例"></a>UserCF推荐算法案例</h2><h3 id="用户物品评分表"><a href="#用户物品评分表" class="headerlink" title="用户物品评分表"></a>用户物品评分表</h3><p>设置有ABCD 4个用户，abcde 5个物品，每个用户对每个物品都有一个评分，该评分代表用户对物品喜爱程度。<br><img src="/img/blog/UserCF/用户物品评分表.png" alt="用户物品评分表"></p><h3 id="用户C与每个用户相似度"><a href="#用户C与每个用户相似度" class="headerlink" title="用户C与每个用户相似度"></a>用户C与每个用户相似度</h3><p>结合用户评分表，可以用余弦相似度，求出用户C与每个用户相似度。  </p><p>C与A相似度 = N(C)与N(A)的交集数量 / 根号下(N(C)元素数量 * N(A)元素数量)<br>其中N(C)中包含b和e，N(A)中包含a,b,d，因此在分子中N(C)与N(A)的交集是b，对应数量是1；分母中两个集合元素数量相乘，等于根号6。<br><img src="/img/blog/UserCF/用户相似度案例.png" alt="用户相似度案例"></p><h3 id="用户C的物品推荐"><a href="#用户C的物品推荐" class="headerlink" title="用户C的物品推荐"></a>用户C的物品推荐</h3><p>根据用户C与每个用户相似度，为用户C推荐物品</p><p>根据用户A、B、C 3个用户的情况，为用户C推荐，K=3。<br>C没有关注过的物品为a、c、d，公式中u=C，i={a,c,d}<br>为a、c、d 3个物品进行排序，就是计算出P(C,a)、P(C,c)、P(C,d)，然后再排序。<br><img src="/img/blog/UserCF/用户推荐案例.png" alt="用户推荐案例"></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>UserCF算法是一种基于用户行为相似度的协同过滤算法。<br>通过计算用户之间的兴趣相似度，找到与目标用户兴趣相似的用户集合，并推荐这些用户喜欢的，但目标用户没有关注的物品。<br>Jaccard相似系数和余弦相似度是常用的用户相似度计算方法。<br>UserCF算法可以为用户提供个性化的推荐结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hugging Face入门1</title>
       <link href="/2023/07/29/Hugging%20Face%E5%85%A5%E9%97%A81/"/>
       <url>/2023/07/29/Hugging%20Face%E5%85%A5%E9%97%A81/</url>
