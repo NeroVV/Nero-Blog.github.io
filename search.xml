@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>极大似然估计</title>
+      <link href="/2023/08/18/%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/"/>
+      <url>/2023/08/18/%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="似然和极大似然估计"><a href="#似然和极大似然估计" class="headerlink" title="似然和极大似然估计"></a>似然和极大似然估计</h1><p>为了深入讨论似然的概念，我们需要先来了解概率和似然。<br>概率和似然都是统计学中的重要概念，他们之间有着紧密的联系。</p><h2 id="概率和似然"><a href="#概率和似然" class="headerlink" title="概率和似然"></a>概率和似然</h2><h3 id="概率的概念"><a href="#概率的概念" class="headerlink" title="概率的概念"></a>概率的概念</h3><p>概率是在特定环境下，某件事情发生的可能性。  </p><p>在结果没有产生之前，我们可以根据环境中的参数，对某件事情发生的概率进行预测。</p><h4 id="举例-概率事件"><a href="#举例-概率事件" class="headerlink" title="举例: 概率事件"></a>举例: 概率事件</h4><p>对于抛硬币事件，在抛硬币之前并不知道，抛硬币的结果是哪一面朝上。<br>但我们可以根据硬币的性质进行推测。<br>如果抛掷的硬币是一枚均匀的硬币，那么可以推断出，任何一面朝上的可能性都是50%。  </p><p>我们要注意，这里的概率50%，只有在抛硬币之前是有意义的，因为抛完硬币后，结果就确定了。</p><p><img src="/img/blog/Maximum_Likelihood_Estimate/抛硬币概率.png" alt="抛硬币概率"></p><h3 id="似然的概念"><a href="#似然的概念" class="headerlink" title="似然的概念"></a>似然的概念</h3><p>似然和概率刚好相反，它是基于已经确定的结果来推测产生这个结果的可能环境，或者是推测环境中的某些参数。</p><h4 id="举例-似然事件"><a href="#举例-似然事件" class="headerlink" title="举例: 似然事件"></a>举例: 似然事件</h4><p>在抛硬币的例子，假如随机抛出一枚硬币1万次，结果8000次人像在上，2000次数字在上。那么可以判断出，这枚硬币在构造时是有些特殊的。<br>我们基于抛掷结果，进一步推测该硬币的具体参数，人像的概率是0.8，数字的概率是0.2。</p><p>这个根据结果判断事情本身性质的过程，就是似然。<br><img src="/img/blog/Maximum_Likelihood_Estimate/抛硬币似然.png" alt="抛硬币似然"></p><p>因此，总结来说，似然和概率可以看作是问题的两个不同方向。<br>概率是在已知模型参数的情况下预测结果，而似然是在已知结果的情况下推断模型参数。</p><h2 id="概率与似然的数学表示"><a href="#概率与似然的数学表示" class="headerlink" title="概率与似然的数学表示"></a>概率与似然的数学表示</h2><p>θ: 环境中的参数<br>x: 事件发生的结果</p><p>概率: P(x|θ)，已知θ，计算x的发生概率<br>似然: L(θ|x)，已知x，推断参数θ</p><p>P(x|θ)是关于x的函数，L(θ|x)是关于θ的函数</p><h2 id="极大似然估计-Maximum-Likelihood-Estimate"><a href="#极大似然估计-Maximum-Likelihood-Estimate" class="headerlink" title="极大似然估计(Maximum Likelihood Estimate)"></a>极大似然估计(Maximum Likelihood Estimate)</h2><p>利用已知的样本标记结果，反推最具有可能，或者最大概率导致这些样本结果出现的模型参数。</p><p>极大似然估计是一种已知观察数据来推断模型参数的过程。<br>例如，根据事件x的观察结果，推断θ是多少时，结果x最有可能发生，就是极大似然估计。</p><h3 id="举例-极大似然估计事件"><a href="#举例-极大似然估计事件" class="headerlink" title="举例: 极大似然估计事件"></a>举例: 极大似然估计事件</h3><p>仍然使用抛硬币这个例子。<br>设它有θ的概率人像在上，那么就有1-θ的概率数字在上。<br>θ是客观存在的，但是我们最初并不知道θ具体是多少，需要根据观测结果进行推断。</p><p>为了获得θ，需要进行多次抛硬币实验，并记录抛出的结果序列。<br>假如在这个序列中，有7次是人像，3次是数字。<br>这样就得到了函数L(θ)等于θ的7次方乘1减θ的3次方。<br><img src="/img/blog/Maximum_Likelihood_Estimate/抛硬币极大似然估计.png" alt="抛硬币极大似然估计"></p><h2 id="似然函数的图像"><a href="#似然函数的图像" class="headerlink" title="似然函数的图像"></a>似然函数的图像</h2><p>函数L被称为θ的似然函数。<br>对于函数L(θ)，我们可以枚举θ的值，画出函数L的图像。<br>当θ等于0时，函数值是0，等于0.5时，函数是1024分之1等等。<br>这时我们会发现，函数在θ等于0.7时，取得最大值。<br><img src="/img/blog/Maximum_Likelihood_Estimate/似然函数.png" alt="抛硬币极大似然估计"></p><h2 id="极大似然估计的假设条件"><a href="#极大似然估计的假设条件" class="headerlink" title="极大似然估计的假设条件"></a>极大似然估计的假设条件</h2><p>当我们使用极大似然估计来估计参数时，我们需要满足一些假设条件：</p><ol><li><p>独立性假设：观测数据之间是相互独立的，即每个观测结果不会受到其他观测结果的影响。</p></li><li><p>同分布假设：观测数据是来自同一个分布，即每个观测结果都是从同一个概率分布中独立地抽取得到的。</p></li><li><p>参数空间假设：参数空间是一个可数集合，其中包含了可能的参数取值。</p></li></ol><h2 id="极大似然估计的注意事项"><a href="#极大似然估计的注意事项" class="headerlink" title="极大似然估计的注意事项"></a>极大似然估计的注意事项</h2><p>当使用极大似然估计来估计参数时，我们需要注意以下几点：</p><ol><li><p>数据的合理性：在进行极大似然估计之前，需要确保观测数据是合理的，并符合所假设的概率分布。如果数据不符合假设的分布，那么使用极大似然估计可能会导致不准确的结果。</p></li><li><p>参数空间的限制：在估计参数时，需要确定参数空间的范围。参数空间的选择可能会影响估计结果。如果参数空间选择不当，可能会导致估计结果不准确或不可靠。</p></li><li><p>估计结果的可靠性：极大似然估计得到的参数估计值并不一定是准确的，它是在给定观测数据的情况下，最可能产生这个观测数据的参数值。因此，需要考虑估计结果的可靠性。可以通过计算置信区间或进行假设检验来评估参数估计的显著性。</p></li><li><p>模型选择：极大似然估计通常是在给定一个概率模型的情况下进行的。但是，在实际应用中，我们可能需要选择合适的概率模型。选择合适的模型对于得到准确的参数估计非常重要。</p></li><li><p>数据量的影响：极大似然估计的准确性通常随着数据量的增加而增加。更多的数据可以提供更多的信息，从而得到更准确的参数估计。</p></li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>极大似然估计是一种参数估计方法，它的目标是找到最可能产生观察数据结果的参数值。  </p><p>在机器学习算法中，比如逻辑回归模型，会根据已有的数据X，学习相应的参数分布，也就是计算θ，这其实就是极大似然估计的思想。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hugging Face入门 (模型文件详解)</title>
+      <link href="/2023/08/11/Hugging%20Face%E5%85%A5%E9%97%A84/"/>
+      <url>/2023/08/11/Hugging%20Face%E5%85%A5%E9%97%A84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Hugging-Face入门-模型文件详解"><a href="#Hugging-Face入门-模型文件详解" class="headerlink" title="Hugging Face入门 (模型文件详解)"></a>Hugging Face入门 (模型文件详解)</h1><h1 id="Hugging-face-Llama-2-模型文件详解"><a href="#Hugging-face-Llama-2-模型文件详解" class="headerlink" title="Hugging face Llama-2 模型文件详解"></a>Hugging face Llama-2 模型文件详解</h1><p>当使用 AutoClass 或者 pipeline() 进行模型加载时，我们会看到从Hugging face上下载模型相关文件。<br>这些文件有什么作用？今天我们就以模型 meta-llama/Llama-2-7b-chat-hf 为例，介绍模型的文件组成。</p><h2 id="模型文件详解"><a href="#模型文件详解" class="headerlink" title="模型文件详解"></a>模型文件详解</h2><p>Llama-2 Huggingface 文件构成如下图所示：</p><p><img src="/img/blog/huggingface4/Llma2_hugging_face.png" alt="Llma2_hugging_face"></p><h3 id="Huggingface-文件介绍"><a href="#Huggingface-文件介绍" class="headerlink" title="Huggingface 文件介绍"></a>Huggingface 文件介绍</h3><div class="table-container"><table><thead><tr><th>文件名</th><th>描述</th></tr></thead><tbody><tr><td>config.json</td><td>模型的主要配置信息，如 Bert 模型设置、预测头部设置、训练参数等</td></tr><tr><td>generation_config.json</td><td>文本生成相关的模型配置</td></tr><tr><td>model-00001-of-00002.safetensors</td><td>safetensors 文件格式的模型权重参数的分块</td></tr><tr><td>model-00002-of-00002.safetensors</td><td>safetensors 文件格式的模型权重参数的分块</td></tr><tr><td>model.safetensors.index.json</td><td>safetensors 模型参数文件的索引，描述了模型切片的信息</td></tr><tr><td>pytorch_model-00001-of-00002.bin</td><td>pickle 序列化的 PyTorch 模型权重参数的分块</td></tr><tr><td>pytorch_model-00002-of-00002.bin</td><td>pickle 序列化的 PyTorch 模型权重参数的分块</td></tr><tr><td>pytorch_model.bin.index.json</td><td>pickle 序列化的 PyTorch 模型索引，描述了模型切片的信息</td></tr><tr><td>special_tokens_map.json</td><td>tokenizer 中特殊标记符（special tokens）到数字 ID 的映射关系</td></tr><tr><td>tokenizer.json</td><td>tokenizer 的配置信息，如字典大小、tokenize 策略等</td></tr><tr><td>tokenizer.model</td><td>tokenizer 的具体模型参数，经过训练得到的二进制文件</td></tr><tr><td>tokenizer_config.json</td><td>使用该 tokenizer 时的配置，如最大序列长度等</td></tr></tbody></table></div><h3 id="模型切片的索引信息"><a href="#模型切片的索引信息" class="headerlink" title="模型切片的索引信息"></a>模型切片的索引信息</h3><p>一个完整的大型模型通常会被切分成多个碎片（shards），并以 <code>model-00001-of-00002.safetensors</code> 这种命名方式保存。<br><code>pytorch_model.bin.index.json</code> 文件包含所有的模型切片信息，主要包括：</p><ul><li><p>模型切片的总数。</p></li><li><p>每个切片的元数据，如名称、偏移地址、文件大小等。</p></li><li><p>切片如何组合起来重新组成完整模型的说明。</p></li><li><p>一些额外的模型信息，如模型名称、框架版本等元数据。</p></li></ul><h3 id="Tokenizer-特殊标记符（Special-Tokens）"><a href="#Tokenizer-特殊标记符（Special-Tokens）" class="headerlink" title="Tokenizer 特殊标记符（Special Tokens）"></a>Tokenizer 特殊标记符（Special Tokens）</h3><p><code>special_tokens_map.json</code> 包含 Tokenizer 特殊标记符（Special Tokens）到其对应的数字 ID 的映射。</p><p>一些常见的特殊标记符定义包括：</p><ul><li><p><code>unk_token</code>：未登录词（out-of-vocabulary words）的标记 ID。</p></li><li><p><code>sep_token</code>：句子分隔的标记 ID。</p></li><li><p><code>pad_token</code>：填充序列到相等长度时使用的填充标记 ID。</p></li><li><p><code>cls_token</code>：分类任务中使用的分类标记 ID。</p></li><li><p><code>mask_token</code>：掩码语言模型任务中使用的掩码标记 ID。</p></li></ul><h3 id="safetensors-文件"><a href="#safetensors-文件" class="headerlink" title="safetensors 文件"></a>safetensors 文件</h3><p>safetensors 是一种安全快速存储和加载 tensors 的文件格式。<br>通常，PyTorch 模型权重会使用 Python 的 pickle 工具将数据序列化到一个 .bin 文件中。<br>然而，pickle 不安全，pickle 的文件可能包含可以执行的恶意代码。safetensors 是 pickle 的一个安全替代方案，非常适合共享模型权重。</p><p>有关使用 Safetensors 的详细信息，请参考 <a href="https://huggingface.co/docs/diffusers/main/en/using-diffusers/using_safetensors">Using Safetensors</a>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hugging Face </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hugging Face入门 (Pipeline)</title>
       <link href="/2023/08/08/Hugging%20Face%E5%85%A5%E9%97%A83/"/>
       <url>/2023/08/08/Hugging%20Face%E5%85%A5%E9%97%A83/</url>
