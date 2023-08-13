@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>隐马尔可夫</title>
+      <link href="/2023/08/25/%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB/"/>
+      <url>/2023/08/25/%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB/</url>
+      
+        <content type="html"><![CDATA[<h1 id="隐马尔可夫"><a href="#隐马尔可夫" class="headerlink" title="隐马尔可夫"></a>隐马尔可夫</h1><p>隐马尔可夫模型由隐含状态链和可见状态链组成。<br>接下来用投骰子的实验，阐述隐含状态链和可见状态链的由来。</p><h2 id="隐含状态链和可见状态链的由来"><a href="#隐含状态链和可见状态链的由来" class="headerlink" title="隐含状态链和可见状态链的由来"></a>隐含状态链和可见状态链的由来</h2><p>实验中有三种不同的骰子。<br>第一个是立方体，有1到6、六个面，记作D6。<br>第二个是正4面体，1到4四个面，记作D4。<br>第三个是正8面体，1到8，8个面，记作D8。  </p><p>它们每个面出现的概率分别是1/6、1/4和1/8。</p><p><img src="/img/blog/Hidden_Markov_Model/骰子.png" alt="骰子"></p><p>我们蒙着眼睛，从这三个骰子中，随机的选择一个，进行抛掷。<br>投掷后，可以得到1到8中的某个数字。</p><p><img src="/img/blog/Hidden_Markov_Model/投骰子.png" alt="投骰子"></p><p>按照这样的方式，重复的随机选择骰子，不断的抛掷，就可以得到一串数字。<br>因为这串数字是我们可以看到的，并直接记录下来的，因此我们将这串数字称为可见状态链。</p><p><img src="/img/blog/Hidden_Markov_Model/可见状态链.png" alt="可见状态链"></p><p>在抛掷的过程中，被我们随机选出来的骰子的编号，也可以组成一串序列，序列中包括了D4、D6和D8。<br>因为我们是蒙着眼睛选骰子，所以并不知道具体选的是哪个骰子<sup>(注解)</sup>。<br>因此，我们称这组骰子编号序列为隐含状态链。</p><p>(注解): 假设实验是在理想状态下进行，3个骰子摸起来的感觉是一样。在抛掷时，一定不知道选的是哪个骰子。</p><p><img src="/img/blog/Hidden_Markov_Model/隐含状态链.png" alt="隐含状态链"></p><p>在实验过程中，产生了两个数据链，可见状态链与隐含状态链，将它们组合在一起，就是隐马尔可夫模型。</p><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫链.png" alt="隐马尔可夫链"></p><h2 id="隐马尔可夫模型的概念"><a href="#隐马尔可夫模型的概念" class="headerlink" title="隐马尔可夫模型的概念"></a>隐马尔可夫模型的概念</h2><p>隐马尔可夫模型(Hidden Markov Model)，简称HMM。<br>它是关于时序的概率模型，该模型包含了随机生成的不可观测序列，该序列被称为状态序列，使用S表示。</p><p>例如，刚刚的骰子序列，就是状态序列。</p><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫状态序列.png" alt="隐马尔可夫状态序列"></p><p>每个不可观测状态，都会产生一个可观测的结果，这样会得到一个观测序列，使用O表示。<br>也就是掷骰子时，产生的数字序列。</p><p>每个状态和观测都会与一个时刻进行对应，如果有t个时刻，就产生了s1到st，o1到ot。<br>就像我们掷骰子，需要一次一次的掷，那么t就可以代表是第几次掷骰子。</p><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫观察序列.png" alt="隐马尔可夫观察序列"></p><p>在HMM中，状态序列是隐藏的，无法被观测到，因此状态变量是一个隐变量，这也是HMM中H的来源。<br>而MM是马尔可夫模型，它代表了隐藏的状态序列是由一个马尔科夫链，随机生成的。</p><h2 id="隐马尔可夫模型的关键因素"><a href="#隐马尔可夫模型的关键因素" class="headerlink" title="隐马尔可夫模型的关键因素"></a>隐马尔可夫模型的关键因素</h2><p>在隐马尔可夫模型中，包含了四个关键因素: </p><ol><li>隐含状态</li><li>可见状态</li><li>隐含状态的转换</li><li>可见状态的输出</li></ol><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫关键因素.png" alt="隐马尔可夫关键因素"></p><p>各个隐含状态之间会进行转换，并有对应的转换概率。  </p><p>例如，在掷骰子的过程中，如果每次都是随机挑选骰子，那么三种不同骰子的转换概就是1/3。</p><p><img src="/img/blog/Hidden_Markov_Model/隐含状态转换.png" alt="隐含状态转换"></p><p>隐含状态会输出可见状态，它们之间有一个输出概率，不同隐含状态到可见状态的输出概率可能不同。</p><p>例如，隐含状态D6输出可见状态1到6，概率是1/6。D4输出1到4，概率是四分之一。</p><p><img src="/img/blog/Hidden_Markov_Model/可见状态输出.png" alt="可见状态输出"></p><h2 id="隐马尔可夫模型的数学表示"><a href="#隐马尔可夫模型的数学表示" class="headerlink" title="隐马尔可夫模型的数学表示"></a>隐马尔可夫模型的数学表示</h2><p>为了进一步讨论隐马尔可夫模型，需要使用数学符号来表示HMM。 </p><h3 id="隐马尔可夫模型的集合"><a href="#隐马尔可夫模型的集合" class="headerlink" title="隐马尔可夫模型的集合"></a>隐马尔可夫模型的集合</h3><p>隐马尔可夫模型包含两个集合: </p><ol><li>隐含状态集合Q: 隐含状态集合Q，包括q1到qn，N种状态</li><li>观测结果集合V: 观测结果集合V，包括v1到vm，M种可能的结果</li></ol><p>在掷骰子的案例中，n=3，q1、q2、q3对应D6、D4、D8，m=8，v1到v8对应数字1到8。</p><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫模型的集合.png" alt="隐马尔可夫模型的集合"></p><h3 id="隐马尔可夫模型的概率矩阵"><a href="#隐马尔可夫模型的概率矩阵" class="headerlink" title="隐马尔可夫模型的概率矩阵"></a>隐马尔可夫模型的概率矩阵</h3><p>隐马尔可夫模型包含三个概率矩阵:  </p><h4 id="状态转移概率矩阵A"><a href="#状态转移概率矩阵A" class="headerlink" title="状态转移概率矩阵A"></a>状态转移概率矩阵A</h4><p>状态转移的概率矩阵A是一个N*N的矩阵。<br>其中aij代表了状态qi转移到状态qj的概率。  </p><p>具体的，aij等于，在st等于qi的条件下，s(t+1)等于qj的概率。  </p><p><img src="/img/blog/Hidden_Markov_Model/状态转移概率矩阵.png" alt="状态转移概率矩阵"></p><p>3个骰子，选择任意骰子的概率都是1/3，那么就得到了3乘3的状态转移概率矩阵，其中的每个元素都是0.33。</p><p><img src="/img/blog/Hidden_Markov_Model/状态转移概率矩阵例子.png" alt="状态转移概率矩阵例子"></p><h4 id="观测概率矩阵B"><a href="#观测概率矩阵B" class="headerlink" title="观测概率矩阵B"></a>观测概率矩阵B</h4><p>观测概率矩阵B，由于每一个状态q都可以输出一个观测结果v，因此B是一个N乘M的矩阵。<br>其中bij代表了在时刻t，状态qi输出观测结果vj的概率。</p><p><img src="/img/blog/Hidden_Markov_Model/观测概率矩阵.png" alt="观测概率矩阵"></p><p>在掷骰子时，根据三种骰子的输出，可以得到一个3乘8的概率矩阵。<br>第一行对应了六面骰子，掷出1到6的概率是六分之一，掷出7和8的概率是0。<br>而第二行和第三行，分别代表投掷四面、八面骰子的输出1到8的概率。</p><p><img src="/img/blog/Hidden_Markov_Model/观测概率矩阵例子.png" alt="观测概率矩阵例子"></p><h4 id="初始状态概率向量矩阵π"><a href="#初始状态概率向量矩阵π" class="headerlink" title="初始状态概率向量矩阵π"></a>初始状态概率向量矩阵π</h4><p>初始状态的概率向量是π，它是一个N*1的列向量。<br>πi代表了在时刻t=1时，状态为qi的概率。  </p><p>例如，掷骰子时，三种骰子的初始概率都是0.33。</p><p><img src="/img/blog/Hidden_Markov_Model/初始状态概率向量矩阵.png" alt="初始状态概率向量矩阵"></p><h4 id="隐马尔可夫模型的概率矩阵关系"><a href="#隐马尔可夫模型的概率矩阵关系" class="headerlink" title="隐马尔可夫模型的概率矩阵关系"></a>隐马尔可夫模型的概率矩阵关系</h4><p>π和A确定了隐藏马尔科夫链，也就是如何生成不可观测的状态序列s。</p><p>B确定了如何从隐藏状态产生观测序列o。</p><p>隐马尔可夫模型由A、B、π共同决定，使用三元符号λ等于A、B、π表示。</p><p><img src="/img/blog/Hidden_Markov_Model/隐马尔可夫模型的概率矩阵.png" alt="隐马尔可夫模型的概率矩阵"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>极大似然估计</title>
       <link href="/2023/08/18/%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/"/>
       <url>/2023/08/18/%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/</url>
@@ -154,150 +179,78 @@
     
     
     <entry>
-      <title>Hugging Face入门 (Transformers/Tokenizer/Pipeline)</title>
+      <title></title>
       <link href="/2023/07/29/Hugging%20Face%E5%85%A5%E9%97%A81/"/>
       <url>/2023/07/29/Hugging%20Face%E5%85%A5%E9%97%A81/</url>
       
-        <content type="html"><![CDATA[<h1 id="Hugging-Face入门-Transformers-Tokenizer-Pipeline"><a href="#Hugging-Face入门-Transformers-Tokenizer-Pipeline" class="headerlink" title="Hugging Face入门 (Transformers/Tokenizer/Pipeline)"></a>Hugging Face入门 (Transformers/Tokenizer/Pipeline)</h1><p>Hugging Face是一个开源的自然语言处理（NLP）库，提供了许多工具和模型，帮助用户进行文本处理、模型调用和预训练模型的微调等任务。下面介绍了一些与Hugging Face相关的重要概念和步骤。</p><h2 id="Transformers"><a href="#Transformers" class="headerlink" title="Transformers"></a>Transformers</h2><p>Transformers是Huggingface开源的基于transformer模型结构提供的预训练语言库，支持PyTorch和TensorFlow2.0。它提供了快速的模型调用功能，并支持模型的进一步训练和微调。</p><h2 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h2><p>Tokenizer是Transformers库中的一个重要模块，用于将文本数据切分成单独的标记（tokens）并进行编码，以便交给模型进行处理。在自然语言处理（NLP）中，将文本转换成标记是一个重要的预处理步骤。不同的模型可能使用不同类型的Tokenizer来处理文本数据，例如BERTTokenizer、GPT2Tokenizer等。</p><h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><p>HuggingFace提供了一个接口，称为Pipeline，使得在Transformers库中使用预训练模型更加简单。通过Pipeline，您可以轻松地对输入文本进行处理并获取模型的输出结果，而无需手动进行繁琐的预处理和后处理步骤。例如，您可以使用TextClassificationPipeline对输入文本进行分类，或使用TextGenerationPipeline生成一段文本。</p><h2 id="基于bart-large-cnn模型进行文本摘要生成"><a href="#基于bart-large-cnn模型进行文本摘要生成" class="headerlink" title="基于bart-large-cnn模型进行文本摘要生成"></a>基于<code>bart-large-cnn</code>模型进行文本摘要生成</h2><p>以下是进行文本摘要生成的步骤：</p><ul><li><p>安装Transformers包。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!pip install transformers datasets --quiet</span><br></pre></td></tr></table></figure></li><li><p>定义所需的模型ID，<a href="https://huggingface.co/facebook/bart-large-cnn。">facebook/bart-large-cnn</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model_id = <span class="string">&quot;facebook/bart-large-cnn&quot;</span></span><br></pre></td></tr></table></figure></li><li><p>准备要进行摘要生成的文本，将其赋值给变量<code>content</code>。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">content = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">The explosion of consumer-facing tools that offer generative AI has created plenty of debate: These tools promise to transform the ways in which we live and work while also raising fundamental questions about how we can adapt to a world in which they&#x27;re extensively used for just about anything.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">As with any new technology riding a wave of initial popularity and interest, it pays to be careful in the way you use these AI generators and bots—in particular, in how much privacy and security you&#x27;re giving up in return for being able to use them.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">It&#x27;s worth putting some guardrails in place right at the start of your journey with these tools, or indeed deciding not to deal with them at all, based on how your data is collected and processed. Here&#x27;s what you need to look out for and the ways in which you can get some control back.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li><li><p>使用Transformers库中的pipeline函数调用模型，其中pipline第一个参数task表示模型执行任务。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">pipeline = pipeline(<span class="string">&quot;summarization&quot;</span>, model=model_id)</span><br></pre></td></tr></table></figure><p><a href="https://huggingface.co/docs/transformers/quicktour">https://huggingface.co/docs/transformers/quicktour</a><br><img src="/img/blog/huggingface1/pipeline_task.png" alt="pipeline_task"></p></li><li><p>输出生成的摘要内容。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pipeline(content)</span><br><span class="line"></span><br><span class="line">[&#123;<span class="string">&#x27;summary_text&#x27;</span>: <span class="string">&quot;The explosion of consumer-facing tools that offer generative AI has created plenty of debate. It&#x27;s worth putting some guardrails in place right at the start of your journey with these tools. Here&#x27;s what you need to look out for and the ways in which you can get some control back.&quot;</span>&#125;]</span><br></pre></td></tr></table></figure></li></ul><p>以上是使用BART-large-cnn模型进行文本摘要生成的简要示例。</p><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>通过Hugging Face的Transformers库，我们可以轻松地使用预训练的transformer模型进行文本处理和任务执行。  </p><p>Tokenizer模块帮助我们将文本数据切分成标记。  </p><p>而Pipeline接口则简化了模型调用和结果获取的过程。  </p><p>通过以上示例，您可以快速开始使用Hugging Face进行文本摘要生成的任务。</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> 机器学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Hugging Face </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>ConstitutionalChain</title>
+      <title></title>
       <link href="/2023/07/26/ConstitutionalChain/"/>
       <url>/2023/07/26/ConstitutionalChain/</url>
       
-        <content type="html"><![CDATA[<h1 id="ConstitutionalChain"><a href="#ConstitutionalChain" class="headerlink" title="ConstitutionalChain"></a>ConstitutionalChain</h1><p>ConstitutionalChain是一种确保LLM（Large Language Model）模型输出符合预定义的宪法原则的机制。<br>通过融入特定的规则和指南，ConstitutionalChain对生成的内容进行过滤和修改，以使其与这些原则保持一致，从而提供更加受控、符合伦理和上下文适当的响应。这种机制有助于维护输出的完整性，同时最大限度地减少生成可能违反指南、具有冒犯性或偏离所期望上下文的内容的风险。</p><h2 id="修改prompt以引导LLM模型回答违规问题"><a href="#修改prompt以引导LLM模型回答违规问题" class="headerlink" title="修改prompt以引导LLM模型回答违规问题"></a>修改prompt以引导LLM模型回答违规问题</h2><p>尽管LLM模型一直在不断进行优化和更新，但通过修改prompt内容仍然可以诱导模型回答违法或违规的内容。<br>这表明在确保模型输出合规性方面，依然需要引入额外的机制。</p><p><img src="/img/blog/ConstitutionalChain/prompt_hacking.png" alt="prompt_hacking"></p><h2 id="使用ConstitutionalChain规避LLM模型输出违法内容"><a href="#使用ConstitutionalChain规避LLM模型输出违法内容" class="headerlink" title="使用ConstitutionalChain规避LLM模型输出违法内容"></a>使用ConstitutionalChain规避LLM模型输出违法内容</h2><p>为了规避LLM模型输出非法或违规的内容，使用ConstitutionalChain是一种有效的方法。</p><p><img src="/img/blog/ConstitutionalChain/constitutional_chain_input.png" alt="constitutional_chain_input"></p><p>当Constitutional AI检测到模型回答中存在违规或不道德的内容时，它会及时更新模型的输出，确保输出内容符合法律法规和伦理准则。  </p><p><img src="/img/blog/ConstitutionalChain/constitutional_chain_output.png" alt="constitutional_chain_output"></p><h2 id="通过ConstitutionalChain优化和丰富模型回答"><a href="#通过ConstitutionalChain优化和丰富模型回答" class="headerlink" title="通过ConstitutionalChain优化和丰富模型回答"></a>通过ConstitutionalChain优化和丰富模型回答</h2><p>ConstitutionalChain不仅可以检测和处理非法内容，还可以改进和丰富模型的回答。<br>当Constitutional AI检测到模型回答内容没有问题，但缺乏足够的解释或细节时，它会对模型的回答进行修改，提供更全面和详细的答案。<br>这样可以提升模型回答的质量和完整性。</p><p><img src="/img/blog/ConstitutionalChain/constitutional_chain_improvement.png" alt="constitutional_chain_improvement"></p><h2 id="支持自定义规则的ConstitutionalChain"><a href="#支持自定义规则的ConstitutionalChain" class="headerlink" title="支持自定义规则的ConstitutionalChain"></a>支持自定义规则的ConstitutionalChain</h2><p>ConstitutionalChain支持自定义规则，可以根据特定需求调整模型的行为。<br>每个规则包括：name规则名称，critique_request对违规内容的定义，revision_request模型在遇到自定义违规内容时应如何修改输出。<br>这为用户提供了更大的灵活性，能够根据自身需求来指导模型的行为。</p><p><img src="/img/blog/ConstitutionalChain/constitutional_chain_custom.png" alt="constitutional_chain_custom"></p><h2 id="展望未来"><a href="#展望未来" class="headerlink" title="展望未来"></a>展望未来</h2><p>ConstitutionalChain为我们解决LLM模型输出违规问题提供了一个有效的机制。  </p><p>随着技术的不断进步和研究的深入，我们可以期待ConstitutionalChain的应用范围进一步扩大。  </p><p>未来可能会有更多的定制规则和改进算法被引入，以进一步提升模型的合规性和质量。  </p><p>借助ConstitutionalChain，我们能够更好地应对模型输出中潜在的违法内容，并为用户提供更加安全和符合要求的回答。</p><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul><li>Constitutional AI论文：<a href="https://examine.dev/docs/Unified_objectives.pdf">链接</a></li><li>ConstitutionalChain官方文档：<a href="https://python.langchain.com/docs/guides/safety/constitutional_chain">链接</a></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> AI学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ChatGPT </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>PySpark AI 简介</title>
+      <title></title>
       <link href="/2023/07/24/PySpark%20AI%E7%AE%80%E4%BB%8B/"/>
       <url>/2023/07/24/PySpark%20AI%E7%AE%80%E4%BB%8B/</url>
       
-        <content type="html"><![CDATA[<h1 id="PySpark-AI-基于自然语言的大规模数据分析"><a href="#PySpark-AI-基于自然语言的大规模数据分析" class="headerlink" title="PySpark AI: 基于自然语言的大规模数据分析"></a>PySpark AI: 基于自然语言的大规模数据分析</h1><p>PySpark AI是一个开源项目，旨在通过使用自然语言作为程序语言进行大规模数据分析。<br><img src="/img/blog/spark_ai/spark_ai.png" alt="spark_ai"></p><h2 id="自然语言作为程序语言的特性"><a href="#自然语言作为程序语言的特性" class="headerlink" title="自然语言作为程序语言的特性"></a>自然语言作为程序语言的特性</h2><p>自然语言作为程序语言具有以下特性，可以简化Spark数据开发过程：</p><h3 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h3><p>通过用户提供的描述，PySpark AI可以执行web搜索并利用LLM确定最合适的结果。然后，它可以顺利地将选择的web数据合并到Spark中，所有这些都是在一个步骤中完成的。</p><h3 id="DataFrame操作"><a href="#DataFrame操作" class="headerlink" title="DataFrame操作"></a>DataFrame操作</h3><p>PySpark AI允许用户使用自然语言描述来进行DataFrames的转换、绘图和解释。这些特性显著增强了代码的可读性和效率，使对DataFrames的操作变得简单直观。</p><h3 id="用户自定义函数（UDFs）"><a href="#用户自定义函数（UDFs）" class="headerlink" title="用户自定义函数（UDFs）"></a>用户自定义函数（UDFs）</h3><p>通过一个简单的装饰器，用户只需要提供一个文档字符串，PySpark AI将处理代码的其余部分。这个特性简化了UDF的创建过程，让用户可以更专注于函数定义。</p><h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>PySpark AI集成了缓存功能，以提高执行速度、生成可重复的结果并节省成本。</p><h2 id="PySpark-AI案例：分析上市公司的股东持股情况"><a href="#PySpark-AI案例：分析上市公司的股东持股情况" class="headerlink" title="PySpark AI案例：分析上市公司的股东持股情况"></a>PySpark AI案例：分析上市公司的股东持股情况</h2><p>下面是一个简单的案例，展示了如何使用PySpark AI分析一家上市公司的前十位股东的持股情况。</p><ul><li>安装和设置<br>首先，需要安装pyspark-ai并设置openai api key。<br><img src="/img/blog/spark_ai/spark_ai案例1.png" alt="spark_ai案例1">  </li></ul><ul><li>实例化ChatOpenAI和SparkAI<br>然后，需要实例化ChatOpenAI和SparkAI对象。<br><img src="/img/blog/spark_ai/spark_ai案例2.png" alt="spark_ai案例2"></li></ul><ul><li>创建DataFrames<br>接下来，输入雅虎财经官方网站的URL，创建DataFrames。<br>雅虎财经: <a href="https://finance.yahoo.com/quote/AAPL/holders?p=AAPL">https://finance.yahoo.com/quote/AAPL/holders?p=AAPL</a><br><img src="/img/blog/spark_ai/spark_ai案例3.png" alt="spark_ai案例3"></li></ul><ul><li>生成图表<br>在不输入任何描述信息的情况下，可以根据DataFrames生成图表。<br><img src="/img/blog/spark_ai/spark_ai案例4.png" alt="spark_ai案例4"></li></ul><ul><li>使用自然语言描述生成饼图<br>通过使用自然语言告诉DataFrames，可以生成饼图的图表。<br><img src="/img/blog/spark_ai/spark_ai案例5.png" alt="spark_ai案例5"></li></ul><ul><li>转换DataFrames并获取持股比例最高的股东信息<br>使用自然语言将DataFrames转换为持股比例最高的股东的名字和百分比。<br><img src="/img/blog/spark_ai/spark_ai案例6.png" alt="spark_ai案例6"></li></ul><ul><li><p>explain函数总结<br>调用explain函数让AI进行操作总结。<br><img src="/img/blog/spark_ai/spark_ai案例7.png" alt="spark_ai案例7"></p></li><li><p>verify函数验证<br>调用verify函数确保最高持股者的比例不超过10%。<br><img src="/img/blog/spark_ai/spark_ai案例8.png" alt="spark_ai案例8"></p></li></ul><h2 id="未来展望"><a href="#未来展望" class="headerlink" title="未来展望"></a>未来展望</h2><p>尽管PySpark AI目前还处于早期开发阶段，功能上还不太成熟，但考虑到它可以基于自然语言处理，简化大规模数据分析的过程，这个项目具有巨大的潜力。 </p><p>随着AI技术的进步和开发者的不断贡献，我们可以期待PySpark AI在未来能够提供更多功能和更高的性能，进一步推动数据分析的发展。</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> AI学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ChatGPT </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>ChatGPT Custom Instructions</title>
+      <title></title>
       <link href="/2023/07/22/ChatGPT%20Custom%20Instructions/"/>
       <url>/2023/07/22/ChatGPT%20Custom%20Instructions/</url>
       
-        <content type="html"><![CDATA[<h2 id="ChatGPT-Custom-Instructions"><a href="#ChatGPT-Custom-Instructions" class="headerlink" title="ChatGPT Custom Instructions"></a>ChatGPT Custom Instructions</h2><p>ChatGPT Custom Instructions使用户可以根据自己的需求定制ChatGPT，并允许添加偏好和要求，以便在生成回复时加以考虑。</p><p>OpenAI通过custom instructions深化了ChatGPT的可操控性，使其能够更好地适应每个人的多样化背景和独特需求，这在理解关键方面起到了关键作用。</p><p>ChatGPT将在每次对话中考虑用户的custom instructions，这样用户无需在每次对话中重复提供自己的偏好或信息。</p><h3 id="Custom-Instructions效果对比"><a href="#Custom-Instructions效果对比" class="headerlink" title="Custom Instructions效果对比"></a>Custom Instructions效果对比</h3><p>下图展示了一个custom instructions的示例：</p><p><img src="/img/blog/custom_instructions/custom_instructions例子.png" alt="custom_instructions例子"></p><p>启用custom instructions后，对ChatGPT提问：”Write me code for getting the nth number in Fibonacci sequence”</p><p>ChatGPT的回复中只提供了GO代码。<br><img src="/img/blog/custom_instructions/custom_instructions_go.png" alt="custom_instructions_go"></p><p>关闭custom instructions后，对ChatGPT提问相同的问题：”Write me code for getting the nth number in Fibonacci sequence”</p><p>这次ChatGPT的回复提供了Python代码，并附带详细的代码说明。然而，如果用户是GO程序员，则需要进一步调整回复以满足其需求。<br><img src="/img/blog/custom_instructions/custom_instructions_python.png" alt="custom_instructions_python"></p><h3 id="Custom-Instructions设置"><a href="#Custom-Instructions设置" class="headerlink" title="Custom Instructions设置"></a>Custom Instructions设置</h3><p>在第一个文本框中，我们可以告诉ChatGPT自己的偏好以及想要讨论的主题。</p><p><img src="/img/blog/custom_instructions/custom_instructions设置1.png" alt="custom_instructions设置1"></p><p>在第二个文本框中，我们可以告诉ChatGPT我们希望它在回复时遵循的风格、字数和偏好。</p><p><img src="/img/blog/custom_instructions/custom_instructions设置2.png" alt="custom_instructions设置2"></p><h3 id="Custom-Instructions的例子"><a href="#Custom-Instructions的例子" class="headerlink" title="Custom Instructions的例子"></a>Custom Instructions的例子</h3><p>以下是一些Custom Instructions的示例：</p><ul><li>查询：请在回答中提供最新的英文资料，并在紧随其后的括号中列出具体的来源链接。</li><li>文章润色：请纠正文稿中的拼写和错误，并注意标点符号的使用。在润色完成后，请附加说明修改了哪些内容以及原因。</li><li>审视：当要求ChatGPT审视内容时，请将自己视为一个经验丰富的领域专家，仔细审视前面的问题，并思考是否存在错误或需要补充的地方。如果有的话，请根据查询资料的结果替换或添加内容。</li></ul><p>上述Custom Instructions的例子可以在单个或多个对话场景中相互调用，并且它们并不是独立起作用。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过使用Custom Instructions，您可以让ChatGPT记住您的特点和定制化要求。  </p><p>此外，指令可以进行嵌套调用，从而降低ChatGPT的使用复杂度。</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> AI学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ChatGPT </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>HTTP/3协议：提升网络性能与解决传输层问题</title>
+      <title></title>
       <link href="/2023/07/20/HTTP3/"/>
       <url>/2023/07/20/HTTP3/</url>
       
-        <content type="html"><![CDATA[<h1 id="HTTP-3协议：提升网络性能与解决传输层问题"><a href="#HTTP-3协议：提升网络性能与解决传输层问题" class="headerlink" title="HTTP/3协议：提升网络性能与解决传输层问题"></a>HTTP/3协议：提升网络性能与解决传输层问题</h1><p>HTTP/3由互联网工程任务组(IETF)，在2022年6月作为RFC 9114提议的标准发布</p><h2 id="为什么需要新协议"><a href="#为什么需要新协议" class="headerlink" title="为什么需要新协议"></a>为什么需要新协议</h2><p>HTTP/2在数据传输阶段，虽然在应用层多个请求可以同时发送，但是传输层TCP协议要求数据包必须按顺序串行传输。<br>如果其中一个数据包丢失或者延迟，后续的数据包就需要等待重传，或者等待前面数据包传输完成后才能发送，也就是说队头阻塞问题并没有彻底解决。<br><img src="/img/blog/http3/http2队头阻塞问题.png" alt="http2队头阻塞问题"><br>由此可得，HTTP/2主要性能瓶颈在传输层TCP协议。  </p><h2 id="TCP协议解决方案"><a href="#TCP协议解决方案" class="headerlink" title="TCP协议解决方案"></a>TCP协议解决方案</h2><h3 id="TCP协议升级-×"><a href="#TCP协议升级-×" class="headerlink" title="TCP协议升级(×)"></a>TCP协议升级(×)</h3><p>为了解决上述问题，有2个升级TCP协议的方案</p><ul><li>Fast Open：缩短连接建立时间</li><li>BBR算法：避免拥塞和队头阻塞  </li></ul><p>但是TCP协议被广泛内置于操作系统内核、中间件固件以及硬件实现中，这些系统和设备都需要进行代码更新、测试和部署，才能支持新的TCP协议改进版本。<br>这个过程需要花费大量时间和精力，并且需要保证向后兼容性，以确保老版本的TCP协议和新版本TCP协议，可以共存于同一个网络中。<br><img src="/img/blog/http3/TCP协议升级.png" alt="TCP协议升级"></p><h3 id="TCP协议更换UDP协议-×"><a href="#TCP协议更换UDP协议-×" class="headerlink" title="TCP协议更换UDP协议(×)"></a>TCP协议更换UDP协议(×)</h3><p>另一个方案解决是换一种传输层协议，可替换的UDP协议是一种无连接，不可靠的协议，不能解决HTTP的问题。  </p><h3 id="QUIC协议的发布"><a href="#QUIC协议的发布" class="headerlink" title="QUIC协议的发布"></a>QUIC协议的发布</h3><p>Google发布一个基于UDP应用层的传输协议，叫做QUIC协议(Quick UDP Internet Connections)<br>它在用户空间实现类似TCP的流量控制、拥塞控制和重传机制等功能，从而提供可靠的数据传输，它的设计目的是替代TCP，开发一种更灵活、更高性能的传输协议。<br><img src="/img/blog/http3/QUIC协议发布.png" alt="QUIC协议发布"></p><h2 id="HTTP-3的QUIC协议"><a href="#HTTP-3的QUIC协议" class="headerlink" title="HTTP/3的QUIC协议"></a>HTTP/3的QUIC协议</h2><h3 id="基于UDP协议开发的原因"><a href="#基于UDP协议开发的原因" class="headerlink" title="基于UDP协议开发的原因"></a>基于UDP协议开发的原因</h3><ul><li>避免重新部署和更新网络设备和系统：UDP协议已经被广泛部署在现有的网络设备和系统中，可以在不影响现有网络设备和系统的情况下，逐步推广和普及</li><li>UDP协议速度快，低延迟：由于UDP协议非常简单和轻量，它具有很快的速度，可以实现很好的网络性能</li></ul><h3 id="HTTP-3使用QUIC协议"><a href="#HTTP-3使用QUIC协议" class="headerlink" title="HTTP/3使用QUIC协议"></a>HTTP/3使用QUIC协议</h3><p>HTTP/3使用QUIC协议替代传输层TCP协议，它的主要目的是使HTTP语法和现有HTTP/2功能，与QUIC传输协议兼容<br><img src="/img/blog/http3/HTTP3_QUIC协议.png" alt="HTTP3_QUIC协议"> </p><h3 id="HTTP-3协议特性"><a href="#HTTP-3协议特性" class="headerlink" title="HTTP/3协议特性"></a>HTTP/3协议特性</h3><ul><li>安全性高：<br>QUIC集成TLS v1.3安全协议大部分特性，并使其兼容自身的传递机制，在传输层实现高级安全性。<br>在HTTP/3中，加密不是可选的，而是一项内置功能。<br>QUIC保留了包含加密密钥的TLS v1.3内容层，但用自己的传输功能替换了记录层。<br><img src="/img/blog/http3/http3安全性.png" alt="http3安全性">  </li></ul><ul><li>建立连接快：<br>HTTP/2协议在建立连接阶段，TCP三次握手，耗费1个RTT，TLS1.2完全握手耗费2个RTT；使用TLS1.3后简化握手需要1个RTT，所以使用TCP+TLS建立连接需要2-3个RTT。<br>QUIC基于UDP，同时集成TLS1.3，只需要1个RTT就可以完成安全连接的建立。<br><img src="/img/blog/http3/http3建立连接快.png" alt="http3建立连接快">  </li></ul><ul><li>解决队头阻塞：<br>QUIC存在Connection和Stream两个级别的概念，Stream可以认为就是一条HTTP请求，Connection可以类比一条TCP连接。<br>QUIC多路复用和HTTP2类似，在一条QUIC Connection上可以同时发送多个Stream，但是QUIC一个连接上的多个Stream之间相互独立没有依赖。<br>假如其中一个Stream丢包，也只会影响该Stream的处理，不会影响其他Stream，这也就在很大程度上缓解，甚至消除队头阻塞的影响。<br><img src="/img/blog/http3/http3队头阻塞.png" alt="http3队头阻塞"></li></ul><ul><li>支持连接迁移：<br>一条TCP连接是由四元组标识(源IP，源端口，目的IP，目的端口)，在手机使用WIFI和4G移动网络切换时，IP肯定会发生变化，就需要重新建立TCP连接。<br>一条QUCI连接不再以IP及端口四元组标识，而是以一个64位的随机数作为ID来标识，这样就算IP或者端口发生变化时，只要ID不变，这条连接依然维持。<br><img src="/img/blog/http3/http3连接迁移.png" alt="http3连接迁移">  </li></ul><ul><li>避免协议僵化：<br>QUIC协议是一个基于用户空间的协议，它的实现独立于操作系统内核，可以在应用层进行部署和更新，这使得QUIC协议更容易引入新的功能和改进<br><img src="/img/blog/http3/http3避免协议僵化.png" alt="http3避免协议僵化"></li></ul><h2 id="HTTP-3弊端"><a href="#HTTP-3弊端" class="headerlink" title="HTTP/3弊端"></a>HTTP/3弊端</h2><ul><li>网管难度大：由于QUIC加密级别高，相比于在报文中带有未加密元数据的TCP，提供防火墙和网络跟踪服务变得更加困难，目前很多防火墙尚不支持QUIC。  </li></ul><ul><li>UDP会被网络阻止：UDP经常被用于不同类型的网络攻击(例如：DDoS攻击)，因为攻击者可以轻易伪造IP地址，发送大量UDP数据包，导致目标服务器过载，从而无法正常处理合法请求，因此一些网络会阻止UDP协议。</li></ul><ul><li>UDP丢包处理难度大：UDP连接出现丢包情况，要交给应用层做重传处理，增大应用层复杂程度</li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> 编程学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> HTTP </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>HTTP和HTTPS协议</title>
+      <title></title>
       <link href="/2023/07/18/HTTP&amp;HTTPS/"/>
       <url>/2023/07/18/HTTP&amp;HTTPS/</url>
       
-        <content type="html"><![CDATA[<h1 id="HTTP和HTTPS协议：了解它们之间的区别"><a href="#HTTP和HTTPS协议：了解它们之间的区别" class="headerlink" title="HTTP和HTTPS协议：了解它们之间的区别"></a>HTTP和HTTPS协议：了解它们之间的区别</h1><p>HTTP（超文本传输协议）和HTTPS（安全套接字层超文本传输协议）是在互联网中广泛使用的两种协议。虽然它们都用于在客户端和服务器之间传输数据，但在安全性和加密方面存在着显著的差异。</p><h2 id="什么是HTTP协议？"><a href="#什么是HTTP协议？" class="headerlink" title="什么是HTTP协议？"></a>什么是HTTP协议？</h2><p>HTTP协议是一种明文传输协议，它以纯文本形式传输数据。当您在浏览器中键入网址并回车时，浏览器会向服务器发送一个HTTP请求，请求获取网页的内容。服务器接收到该请求后会返回相应的HTML文件，浏览器会将其解析并呈现给您。</p><p>然而，由于HTTP协议的传输过程是明文的，意味着数据在传输过程中是以可读的形式发送的。这种设计存在安全风险，攻击者可以窃听和窃取这些传输的数据，包括您的个人信息、登录凭证等。</p><h2 id="什么是HTTPS协议？"><a href="#什么是HTTPS协议？" class="headerlink" title="什么是HTTPS协议？"></a>什么是HTTPS协议？</h2><p>为了解决HTTP协议的安全问题，HTTPS协议应运而生。HTTPS是HTTP的安全版本，通过在 HTTP 上面添加安全层（TLS/SSL）来保护数据的传输过程。</p><p>在HTTPS协议中，数据在传输之前会被加密，使得攻击者无法轻易获取其中的内容。加密过程使用了公开密钥加密（Public Key Encryption）和对称密钥加密（Symmetric Key Encryption）等加密算法，以确保数据在传输过程中的保密性和完整性。</p><p>另外，HTTPS协议还使用了数字证书来对服务器进行身份验证。服务器会通过数字证书向浏览器证明自己的身份，并提供公钥用于加密通信。浏览器会验证证书的有效性和合法性，确保与服务器建立的连接是安全的。</p><h2 id="HTTP协议和HTTPS协议的关系"><a href="#HTTP协议和HTTPS协议的关系" class="headerlink" title="HTTP协议和HTTPS协议的关系"></a>HTTP协议和HTTPS协议的关系</h2><p>HTTP协议和HTTPS协议是相关但不同的协议。HTTP是最常用的协议之一，用于在浏览器和服务器之间传输数据。然而，由于其不加密的特性，HTTP协议存在着安全风险。</p><p>HTTPS是基于HTTP协议的扩展和改进版本。它在HTTP协议的基础上添加了安全层，以确保传输的数据在传输过程中不被攻击者拦截和窃取。因此，可以说HTTPS是HTTP的加强版，旨在提供更高的安全性和保护用户隐私的功能。</p><p>现代的浏览器和网站通常要求使用HTTPS来加密通信，以确保用户的敏感信息和数据的安全性。因此，可以说HTTP和HTTPS协议是紧密相关的，且HTTPS在保护网络通信安全方面扮演着重要的角色。</p><h2 id="HTTP协议和HTTPS协议的协同工作"><a href="#HTTP协议和HTTPS协议的协同工作" class="headerlink" title="HTTP协议和HTTPS协议的协同工作"></a>HTTP协议和HTTPS协议的协同工作</h2><p>HTTP协议和HTTPS协议可以在同一个网站上共存，但它们在数据传输和安全性方面有所不同。</p><p>当用户访问使用HTTPS的网站时，浏览器会向服务器发送一个HTTPS请求。服务器会将自己的数字证书发送给浏览器，并向其证明自己的身份。浏览器会验证证书的有效性和合法性，以确保与服务器建立的连接是安全的。</p><p>一旦连接建立，浏览器和服务器之间的通信将使用安全的加密算法进行加密。这确保了从浏览器到服务器的数据传输过程中的保密性和完整性。</p><p>同时，在使用HTTPS协议的网站上，浏览器还会对其他以HTTP方式加载的资源进行安全性检查。如果这些资源没有通过安全通道进行传输，则浏览器会发出警告并阻止加载该资源。</p><p>因此，HTTP协议和HTTPS协议通过共同工作，确保了Web通信的安全性。通过使用HTTPS，我们可以保护网站之间的数据传输安全，确保用户的隐私和数据的完整性。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>HTTP协议和HTTPS协议是互联网通信中的两个重要协议。</p><p>它们在安全性和加密等方面存在明显的区别。</p><p>通过使用HTTPS，我们可以保护网站之间的数据传输安全，从而确保用户的隐私和数据的完整性。</p><p>HTTP协议和HTTPS协议之间存在紧密的关系，在网络通信中协同工作，以提供更安全和可信赖的网络体验。</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
-      <categories>
-          
-          <category> 编程学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> HTTP </tag>
-            
-        </tags>
       
     </entry>
     
