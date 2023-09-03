@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>1-VS-Rest策略</title>
+      <link href="/2023/09/23/1VSRest%E7%AD%96%E7%95%A5/"/>
+      <url>/2023/09/23/1VSRest%E7%AD%96%E7%95%A5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-VS-Rest策略"><a href="#1-VS-Rest策略" class="headerlink" title="1-VS-Rest策略"></a>1-VS-Rest策略</h1><h2 id="1-VS-Rest策略概念"><a href="#1-VS-Rest策略概念" class="headerlink" title="1-VS-Rest策略概念"></a>1-VS-Rest策略概念</h2><p>1-VS-Rest策略是一种机器学习算法的策略，将每个类别作为一个二分类问题来处理，可以用于解决多类分类问题。</p><p><img src="/img/blog/1VSRest/1VSRest示例1.png" alt="1VSRest示例1"></p><p>在训练时，将需要识别出的类别的数据作为正例，其余数据作为反例。<br>这种训练方式被称为1-VS-Rest，也就是1对其余的策略。  </p><p>例如，在对绿色、蓝色和红色三种数据进行分类时，分别训练绿色对蓝色和红色、蓝色对绿色和红色、红色对绿色和蓝色三个模型。</p><p><img src="/img/blog/1VSRest/1VSRest示例2.png" alt="1VSRest示例2"></p><p>如果有N个目标类别，就需要训练N个二分类模型。在使用这些模型时，这N个模型互相独立，互不干扰。<br>对于同一个待预测数据，每个模型都需要计算一遍。</p><p>输出识别结果时，可以选择置信度最大的某一个结果，也可以选择置信度超过0.5的多个结果。<br>具体如何选择，与实际的任务相关。</p><p><img src="/img/blog/1VSRest/1VSRest示例3.png" alt="1VSRest示例3"></p><p>例如，我们要搭建一个新闻分类系统，根据输入的文章内容，输出文章的类别。<br>这时，某偏文章就可能是既是体育新闻，同时还有娱乐属性，因此就需要同时输出这两个类别。</p><p><img src="/img/blog/1VSRest/1VSRest示例4.png" alt="1VSRest示例4"></p><h2 id="1-VS-Rest策略使用场景"><a href="#1-VS-Rest策略使用场景" class="headerlink" title="1-VS-Rest策略使用场景"></a>1-VS-Rest策略使用场景</h2><p>1-VS-Rest策略对目标类别，使用一个二分类算法（如逻辑回归、支持向量机等）来训练一个分类器。<br>这样，对于每个类别，都会得到一个独立的分类器。</p><p>对于不同的类别，我们甚至可以使用不同的二分类模型进行训练。<br>例如，我们可以将逻辑回归、SVM、决策树，这三种模型，应用在同一个分类系统中，来识别不同的类别。</p><p><img src="/img/blog/1VSRest/1VSRest二分类算法.png" alt="1VSRest二分类算法"></p><p><strong><font color="blue">基于1-VS-Rest策略的多分类，其优势是可维护性高，随时可以增加新的类别模型，或者修改升级其中某个模型，都不会对其他已有模型产生影响。</font></strong></p><p>另外，分类结果是相互独立的，可以自由选择这些模型的组合方式，进行更有针对的调试和优化。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>softmax与sigmoid</title>
+      <link href="/2023/09/18/softmax%E4%B8%8Esigmoid/"/>
+      <url>/2023/09/18/softmax%E4%B8%8Esigmoid/</url>
+      
+        <content type="html"><![CDATA[<h1 id="softmax与sigmoid"><a href="#softmax与sigmoid" class="headerlink" title="softmax与sigmoid"></a>softmax与sigmoid</h1><p>sigmoid函数是一种常用的非线性函数，也被称为逻辑函数（Logistic function）。<br>它将任意实数映射到一个介于0和1之间的值。<br>将线性输出z转化为一个概率，这个概率表示样本属于正例的可能性。</p><p><img src="/img/blog/softmax/Sigmoid公式.png" alt="Sigmoid公式"></p><p>在softmax归中，我们使用softmax函数将输出值zk同样转化为概率，这个概率表示样本属于第k个类别的可能性。</p><p><img src="/img/blog/softmax/softmax公式.png" alt="softmax公式"></p><p>当softmax类别数为2时，softmax回归和逻辑回归的输出等价的。</p><p><img src="/img/blog/softmax/softmax类别为2.png" alt="softmax类别为2"></p><h2 id="softmax类别数为2公式推导"><a href="#softmax类别数为2公式推导" class="headerlink" title="softmax类别数为2公式推导"></a>softmax类别数为2公式推导</h2><p>设有两个类别，类别1和类别0，某样本x属于1或0的概率为p(y=1)和p(y=0)。  </p><p>在逻辑回归中，使用sigmoid函数来预测正例的概率，结果p(y=1)=sigmoid(z)。</p><p>在softmax回归中，类别k的概率为，softmax(zk)。<br>根据softmax函数，类别0和类别1的概率分别是softmax(z0)、softmax(z1)。<br>将这两个等式相除，得到p(y=0)/p(y=1)=e^z0/e^z1。  </p><p><img src="/img/blog/softmax/softmax类别为2公式推导1.png" alt="softmax类别为2公式推导1"></p><p>将p(y=0)=1-p(y=1)，带入这个式子，得到，(1 - p(y=1)) / p(y=1)= e^(z0-z1)。</p><p><img src="/img/blog/softmax/softmax类别为2公式推导2.png" alt="softmax类别为2公式推导2"></p><p>将p(y=1)，表示出来，得到 1/ (1+e^(z0-z1))。<br>这时我们将z0看做是0，或者将z0-z1看做是一个整体，对应-z，就会得到逻辑回归的形式了。</p><p><img src="/img/blog/softmax/softmax类别为2公式推导3.png" alt="softmax类别为2公式推导3"></p><p><strong>可以得出结论，在处理二分类问题时，softmax回归和逻辑回归，实际上是完全等价的模型。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>softmax回归</title>
       <link href="/2023/09/16/softmax%E5%9B%9E%E5%BD%92/"/>
       <url>/2023/09/16/softmax%E5%9B%9E%E5%BD%92/</url>
